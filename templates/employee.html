@@ -1,0 +1,10 @@
+{% extends "base_template.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card shadow-lg p-4 rounded-3 text-center">
+        <h2 class="card-title text-primary">Employee Dashboard</h2>
+        <p class="card-text">Welcome, {{ current_user.name }}!</p>
+    </div>
+</div>
+{% endblock %}
