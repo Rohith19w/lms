@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card shadow-lg p-4 rounded-3">
+        <h2 class="card-title text-center text-primary mb-4">Manager Dashboard</h2>
+        <h4 class="text-center text-muted mb-4">Pending Leave Requests from Your Team</h4>
+        {% if pending_requests %}
+            <div class="table-responsive">
+                <table class="table table-striped table-hover rounded-3 overflow-hidden">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Employee Name</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            <th>Reason</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for req in pending_requests %}
+                        <tr>
+                            <td>{{ req.employee.name }}</td>
+                            <td>{{ req.start_date.strftime('%Y-%m-%d') }}</td>
+                            <td>{{ req.end_date.strftime('%Y-%m-%d') }}</td>
+                            <td>{{ req.reason }}</td>
+                            <td>
+                                <a href="{{ url_for('approve_request', request_id=req.id) }}" class="btn btn-sm btn-success me-2">Approve</a>
+                                <a href="{{ url_for('reject_request', request_id=req.id) }}" class="btn btn-sm btn-danger">Reject</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <p class="text-center text-muted mt-4">No pending leave requests at this time.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
